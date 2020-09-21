@@ -20,15 +20,15 @@ public class RpcFramework {
     /**
      * 服务暴露
      *
-     * @param service       服务实现
-     * @param port          服务端口
-     * @throws Exception    异常
+     * @param service 服务实现
+     * @param port    服务端口
+     * @throws Exception 异常
      */
-    public static void export(final Object service, int port) throws Exception{
-        if (service == null){
+    public static void export(final Object service, int port) throws Exception {
+        if (service == null) {
             throw new IllegalArgumentException("service instance is null");
         }
-        if (port <= 0 || port > 65535){
+        if (port <= 0 || port > 65535) {
             throw new IllegalArgumentException("Invalid port " + port);
         }
 
@@ -64,17 +64,17 @@ public class RpcFramework {
                                 } finally {
                                     outputStream.close();
                                 }
-                            }finally {
+                            } finally {
                                 input.close();
                             }
-                        }finally {
+                        } finally {
                             socket.close();
                         }
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }).start();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -84,24 +84,24 @@ public class RpcFramework {
     /**
      * 调用服务
      *
-     * @param interfaceClass        接口类型
-     * @param host                  服务端主机名
-     * @param port                  服务端端口
-     * @param <T>                   接口泛型
-     * @throws Exception            Exception
+     * @param interfaceClass 接口类型
+     * @param host           服务端主机名
+     * @param port           服务端端口
+     * @param <T>            接口泛型
+     * @throws Exception Exception
      */
     @SuppressWarnings("unchecked")
-    public static <T> T refer(final Class<T> interfaceClass, final String host, final int port) throws Exception{
-        if (interfaceClass == null){
+    public static <T> T refer(final Class<T> interfaceClass, final String host, final int port) throws Exception {
+        if (interfaceClass == null) {
             throw new IllegalArgumentException("Interface class is null");
         }
-        if (!interfaceClass.isInterface()){
+        if (!interfaceClass.isInterface()) {
             throw new IllegalArgumentException("The " + interfaceClass.getName() + " must be interface class");
         }
-        if (host == null || host.length() == 0){
+        if (host == null || host.length() == 0) {
             throw new IllegalArgumentException("Host is null");
         }
-        if (port <= 0 || port > 65535){
+        if (port <= 0 || port > 65535) {
             throw new IllegalArgumentException("Invalid port " + port);
         }
 
@@ -122,17 +122,17 @@ public class RpcFramework {
                         ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
                         try {
                             Object result = input.readObject();
-                            if (result instanceof Throwable){
+                            if (result instanceof Throwable) {
                                 throw (Throwable) result;
                             }
                             return result;
-                        }finally {
+                        } finally {
                             input.close();
                         }
-                    }finally {
+                    } finally {
                         output.close();
                     }
-                }finally {
+                } finally {
                     socket.close();
                 }
             }

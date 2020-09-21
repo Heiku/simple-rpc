@@ -11,10 +11,9 @@ import service.impl.HelloServiceImpl;
  * @Date: 2019/9/20
  */
 public class RpcProvider {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
 
         HelloService helloService = new HelloServiceImpl();
-
         RpcFramework.export(helloService, 1234);
     }
 }
